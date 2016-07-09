@@ -21,7 +21,7 @@ def generate_sentence(markov):
     count = 0
     sentence = ""
     w1, w2 = random.choice(list(markov.keys()))
-    while count < len(words):
+    while w2 not in ["。", "！", "？", "!", "?", "."]:
         tmp = random.choice(markov[(w1, w2)])
         sentence += tmp
         w1, w2 = w2, tmp
