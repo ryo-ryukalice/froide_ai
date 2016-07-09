@@ -1,3 +1,4 @@
+import sys
 import random
 import MeCab
 
@@ -30,4 +31,14 @@ def generate_sentence(markov):
 if __name__ == "__main__":
     words = morphological_analysis(open("import.txt", "r").read())
     markov = markov_chain(words)
-    print(generate_sentence(markov))
+
+    print("AI: 就職に関するお悩みをどうぞ")
+
+    while True:
+        s = input("あなた: ")
+        if s == '': continue
+        if s == 'ありがとう': break
+
+        print(generate_sentence(markov))
+
+    print("どういたしまして")
