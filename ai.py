@@ -2,9 +2,11 @@ import sys
 import random
 import MeCab
 
-def morphological_analysis(text):
+# 形態素解析
+def split_morpheme(text):
     return MeCab.Tagger("-Owakati").parse(text).rstrip(" \n").split(" ")
 
+# マルコフ連鎖テーブル
 def markov_chain(words):
     markov = {}
     w1 = ""
@@ -17,28 +19,48 @@ def markov_chain(words):
         w1, w2 = w2, word
     return markov
 
-def generate_sentence(markov):
-    count = 0
+# ユーザー入力文からランダムに取得した形態素を起点に、マルコフ連鎖で回答文を生成
+def answer(user_morphemes, markov):
     sentence = ""
-    w1, w2 = random.choice(list(markov.keys()))
+
+    count = 0
+    w1 = ''
+    w2 = ''
+    while True:
+        count += 1
+        keys = random.choice(list(markov.keys()))
+        if keys[0] in user_morphemes:
+            w1 = keys[0]
+            w2 = keys[1]
+            break
+        if count > len(markov):
+            return "AI: 質問の内容を理解できませんでした"
+
+    count = 0
     while w2 not in ["。", "！", "？", "!", "?", "."]:
         tmp = random.choice(markov[(w1, w2)])
         sentence += tmp
         w1, w2 = w2, tmp
         count += 1
-    return sentence
+        if count > len(markov):break
+    return "AI: " + sentence
 
 if __name__ == "__main__":
-    words = morphological_analysis(open("import.txt", "r").read())
-    markov = markov_chain(words)
+    morphemes = split_morpheme(open("import.txt", "r").read())
+    markov = markov_chain(morphemes)
 
     print("AI: 就職に関するお悩みをどうぞ")
 
     while True:
-        s = input("あなた: ")
-        if s == '': continue
-        if s == 'ありがとう': break
+        user_input = input("あなた: ")
+        if user_input == "": continue
+        if user_input == "ありがとう": break
 
-        print(generate_sentence(markov))
+        # ユーザー入力を形態素解析してマルコフ連鎖テーブルに加える
+        user_morphemes = split_morpheme(user_input)
+        morphemes += split_morpheme(user_input)
+        markov = markov_chain(morphemes)
 
-    print("どういたしまして")
+        print(answer(user_morphemes, markov))
+
+    print("AI: どういたしまして")
