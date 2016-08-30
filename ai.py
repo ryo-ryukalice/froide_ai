@@ -1,6 +1,8 @@
 import sys
 import random
 import MeCab
+import csv
+import re
 from markov import *
 
 # 形態素解析
@@ -33,6 +35,20 @@ def answer(user_morphemes, markov):
         if count > len(markov):break
     return "AI: " + sentence
 
+def fixed_answer(user_input):
+    reader = csv.reader(open('pattern.csv', 'r'))
+    next(reader)
+
+    for row in reader:
+
+        while row.count("") > 0:
+            row.remove("")
+
+        for w in row[1:]:
+            if (re.match(w, user_input)):
+                return row[0].replace('{IN}', w)
+    return ""
+
 if __name__ == "__main__":
     morphemes = split_morpheme(open("import.txt", "r").read())
     markov = markov_chain(morphemes)
@@ -49,6 +65,13 @@ if __name__ == "__main__":
         morphemes += split_morpheme(user_input)
         markov = markov_chain(morphemes)
 
-        print(answer(user_morphemes, markov))
+        # 定型文から回答を取得
+        text = fixed_answer(user_input)
+
+        # 定型文の回答がなければマルコフ連鎖で回答
+        if text == "":
+            text = answer(user_morphemes, markov)
+
+        print(text)
 
     print("AI: どういたしまして")
