@@ -12,7 +12,7 @@ if __name__ == "__main__":
     fixed_phrase = FixedPhrase()
     markov = Markov(morpheme_analyzer.analyze(import_text.read()))
 
-    print("AI: 就職に関するお悩みをどうぞ")
+    print("AI: ななこが、あなたの就職に関するお悩みを、な～んでも聞くよ！")
 
     while True:
         user_input = input("あなた: ")
@@ -37,4 +37,4 @@ if __name__ == "__main__":
 
         print("AI: " + text)
 
-    print("AI: どういたしまして")
+    print("AI: こちらこそありがとう☆　またお話しようね♪")
