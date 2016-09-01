@@ -24,7 +24,7 @@ class Markov:
                 w2 = keys[1]
                 break
             if count > len(self.table):
-                return "質問の内容を理解できませんでした"
+                return "ななこにも分かる言葉で言ってよぉ～☆"
 
         count = 0
         while w2 not in ["。", "！", "？", "!", "?", "."]:
