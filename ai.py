@@ -60,6 +60,9 @@ if __name__ == "__main__":
         if user_input == "": continue
         if user_input == "ありがとう": break
 
+        # ユーザー入力をインポートテキストに追記する
+        open("import.txt", "a").write(user_input)
+
         # ユーザー入力を形態素解析してマルコフ連鎖テーブルに加える
         user_morphemes = split_morpheme(user_input)
         morphemes += split_morpheme(user_input)
