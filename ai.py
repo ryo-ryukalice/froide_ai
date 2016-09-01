@@ -1,4 +1,5 @@
 import sys
+import re
 
 from import_text import *
 from markov import *
@@ -19,7 +20,10 @@ if __name__ == "__main__":
         if user_input == "ありがとう": break
 
         # ユーザー入力をインポートテキストに追記する
-        import_text.add(user_input)
+        if (re.match("覚えて: ", user_input)):
+            import_text.add(user_input.replace("覚えて: ", ""))
+            print("AI: 覚えたよ！")
+            continue
 
         # ユーザー入力を形態素解析してマルコフ連鎖テーブルに加える
         user_morphemes = morpheme_analyzer.analyze(user_input)
