@@ -30,7 +30,6 @@ class Markov:
         count = 0
         while w2 not in ["。", "！", "？", "!", "?", "."]:
             words = self.table.get((w1, w2))
-            print(words)
             if words is None:break
             tmp = random.choice(words)
             sentence += tmp
