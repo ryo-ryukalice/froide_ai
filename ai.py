@@ -25,9 +25,8 @@ if __name__ == "__main__":
             print("AI: 覚えたよ！")
             continue
 
-        # ユーザー入力を形態素解析してマルコフ連鎖テーブルに加える
+        # ユーザー入力を形態素解析
         user_morphemes = morpheme_analyzer.analyze(user_input)
-        markov.add(user_morphemes)
 
         # 定型文から回答を取得
         text = fixed_phrase.answer(user_input)
