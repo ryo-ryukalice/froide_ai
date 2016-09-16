@@ -26,9 +26,11 @@ class Markov:
             if count > len(self.table):
                 return "ななこにも分かる言葉で言ってよぉ～☆"
 
+        sentence = w1 + w2
         count = 0
         while w2 not in ["。", "！", "？", "!", "?", "."]:
             words = self.table.get((w1, w2))
+            print(words)
             if words is None:break
             tmp = random.choice(words)
             sentence += tmp

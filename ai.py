@@ -25,14 +25,14 @@ if __name__ == "__main__":
             print("AI: 覚えたよ！")
             continue
 
-        # ユーザー入力を形態素解析
-        user_morphemes = morpheme_analyzer.analyze(user_input)
-
         # 定型文から回答を取得
         text = fixed_phrase.answer(user_input)
 
+        # ユーザー入力を形態素解析
+        nouns = morpheme_analyzer.extract_noun(user_input)
+
         # 定型文の回答がなければマルコフ連鎖で回答
-        if text == "":text = markov.answer(user_morphemes)
+        if text == "":text = markov.answer(nouns)
 
         print("AI: " + text)
 
