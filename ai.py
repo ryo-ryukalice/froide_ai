@@ -21,7 +21,9 @@ if __name__ == "__main__":
 
         # ユーザー入力をインポートテキストに追記する
         if (re.match("覚えて: ", user_input)):
-            import_text.add(user_input.replace("覚えて: ", ""))
+            text = user_input.replace("覚えて: ", "")
+            import_text.add(text)
+            markov.add(morpheme_analyzer.analyze(text))
             print("AI: 覚えたよ！")
             continue
 
