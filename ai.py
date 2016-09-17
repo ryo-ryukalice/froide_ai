@@ -34,7 +34,7 @@ if __name__ == "__main__":
         nouns = morpheme_analyzer.extract_noun(user_input)
 
         # 定型文の回答がなければマルコフ連鎖で回答
-        if text == "":text = markov.answer(nouns)
+        if text == "": text = markov.answer(nouns)
 
         print("AI: " + text)
 
