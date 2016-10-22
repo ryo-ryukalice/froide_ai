@@ -12,7 +12,9 @@ if __name__ == "__main__":
     fixed_phrase = FixedPhrase()
     markov = Markov(morpheme_analyzer.analyze(import_text.read()))
 
-    print("AI: ななこが、あなたの就職に関するお悩みを、な～んでも聞くよ！")
+    name = 'ななこ'
+
+    print("%s: %sが、あなたの就職に関するお悩みを、な～んでも聞くよ！" % (name, name)
 
     while True:
         user_input = input("あなた: ")
@@ -24,7 +26,7 @@ if __name__ == "__main__":
             text = user_input.replace("覚えて: ", "")
             import_text.add(text)
             markov.add(morpheme_analyzer.analyze(text))
-            print("AI: 覚えたよ！")
+            print("%s: 覚えたよ！" % name)
             continue
 
         # 定型文から回答を取得
@@ -35,6 +37,6 @@ if __name__ == "__main__":
             nouns = morpheme_analyzer.extract_noun(user_input)
             text = markov.answer(nouns)
 
-        print("AI: " + text)
+        print("%s: " % name + text)
 
-    print("AI: こちらこそありがとう☆　またお話しようね♪")
+    print("%s: こちらこそありがとう☆　またお話しようね♪" % name)
