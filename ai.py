@@ -14,7 +14,8 @@ if __name__ == "__main__":
 
     name = 'ななこ'
 
-    print("%s: %sが、あなたの就職に関するお悩みを、な～んでも聞くよ！" % (name, name)
+    print("%s: %sが、あなたの就職に関するお悩みを、な～んでも聞くよ！" % (name, name))
+    print("%s: %sに言葉を覚えさせたいときは@から初めてね！" % (name, name))
 
     while True:
         user_input = input("あなた: ")
@@ -22,8 +23,8 @@ if __name__ == "__main__":
         if user_input == "ありがとう": break
 
         # ユーザー入力をインポートテキストに追記する
-        if (re.match("覚えて: ", user_input)):
-            text = user_input.replace("覚えて: ", "")
+        if (re.match('^@|^＠', user_input)):
+            text = re.sub('^@|^＠', '', user_input)
             import_text.add(text)
             markov.add(morpheme_analyzer.analyze(text))
             print("%s: 覚えたよ！" % name)
