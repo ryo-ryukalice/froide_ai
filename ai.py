@@ -1,4 +1,3 @@
-import sys
 import re
 
 from import_text import *
@@ -6,16 +5,17 @@ from markov import *
 from morpheme_analyzer import *
 from fixed_phrase import *
 
+def output(text):
+    print("ななこ: " + text)
+
 if __name__ == "__main__":
     import_text = ImportText('import.txt')
     fixed_phrase = FixedPhrase('pattern.csv')
     morpheme_analyzer = MorphemeAnalyzer()
     markov = Markov(morpheme_analyzer.analyze(import_text.read()))
 
-    name = 'ななこ'
-
-    print("%s: %sが、あなたの就職に関するお悩みを、な～んでも聞くよ！" % (name, name))
-    print("%s: %sに言葉を覚えさせたいときは@から初めてね！" % (name, name))
+    output('ななこが、あなたの就職に関するお悩みを、な～んでも聞くよ！')
+    output('ななこに言葉を覚えさせたいときは@から初めてね！')
 
     while True:
         user_input = input("あなた: ")
@@ -27,7 +27,7 @@ if __name__ == "__main__":
             text = re.sub('^@|^＠', '', user_input)
             import_text.add(text)
             markov.add(morpheme_analyzer.analyze(text))
-            print("%s: 覚えたよ！" % name)
+            output('覚えたよ！')
             continue
 
         # 定型文から回答を取得
@@ -38,6 +38,10 @@ if __name__ == "__main__":
             nouns = morpheme_analyzer.extract_noun(user_input)
             text = markov.answer(nouns)
 
-        print("%s: " % name + text)
+        if text == "":
+            text = "ななこにも分かる言葉で言ってよぉ～☆"
 
-    print("%s: こちらこそありがとう☆　またお話しようね♪" % name)
+
+        output(text)
+
+    output("こちらこそありがとう☆　またお話しようね♪")

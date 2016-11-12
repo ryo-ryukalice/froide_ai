@@ -24,7 +24,7 @@ class Markov:
                 w2 = keys[1]
                 break
             if count > len(self.table):
-                return "ななこにも分かる言葉で言ってよぉ～☆"
+                return ""
 
         sentence = w1 + w2
         count = 0
