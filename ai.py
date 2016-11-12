@@ -7,9 +7,9 @@ from morpheme_analyzer import *
 from fixed_phrase import *
 
 if __name__ == "__main__":
-    import_text = ImportText()
+    import_text = ImportText('import.txt')
+    fixed_phrase = FixedPhrase('pattern.csv')
     morpheme_analyzer = MorphemeAnalyzer()
-    fixed_phrase = FixedPhrase()
     markov = Markov(morpheme_analyzer.analyze(import_text.read()))
 
     name = 'ななこ'

@@ -2,11 +2,13 @@ import csv
 import re
 
 class FixedPhrase:
-    FILE_NAME = "pattern.csv"
+    def __init__(self, fpath):
+        self.fpath = fpath
+
 
     # ユーザー入力文が IN 列の文字列パターンにマッチしたら定型文を返す
     def answer(self, user_input):
-        self.reader = csv.reader(open(self.FILE_NAME, "r"))
+        self.reader = csv.reader(open(self.fpath, "r"))
         next(self.reader)
 
         for row in self.reader:

@@ -1,8 +1,9 @@
 class ImportText:
-    FILE_NAME = "import.txt"
+    def __init__(self, fpath):
+        self.fpath = fpath
 
     def read(self):
-        return open(self.FILE_NAME, "r").read()
+        return open(self.fpath, "r").read()
 
     def add(self, text):
-        open(self.FILE_NAME, "a").write(text + "\n")
+        open(self.fpath, "a").write(text + "\n")
