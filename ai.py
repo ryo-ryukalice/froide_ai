@@ -41,7 +41,6 @@ if __name__ == "__main__":
         if text == "":
             text = "ななこにも分かる言葉で言ってよぉ～☆"
 
-
         output(text)
 
     output("こちらこそありがとう☆　またお話しようね♪")
