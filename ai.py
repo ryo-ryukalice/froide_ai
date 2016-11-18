@@ -1,4 +1,3 @@
-import sys
 import re
 
 from import_text import *
@@ -6,13 +5,17 @@ from markov import *
 from morpheme_analyzer import *
 from fixed_phrase import *
 
+def output(text):
+    print("ななこ: " + text)
+
 if __name__ == "__main__":
-    import_text = ImportText()
+    import_text = ImportText('import.txt')
+    fixed_phrase = FixedPhrase('pattern.csv')
     morpheme_analyzer = MorphemeAnalyzer()
-    fixed_phrase = FixedPhrase()
     markov = Markov(morpheme_analyzer.analyze(import_text.read()))
 
-    print("AI: ななこが、あなたの就職に関するお悩みを、な～んでも聞くよ！")
+    output('ななこが、あなたの就職に関するお悩みを、な～んでも聞くよ！')
+    output('ななこに言葉を覚えさせたいときは@から初めてね！')
 
     while True:
         user_input = input("あなた: ")
@@ -20,11 +23,11 @@ if __name__ == "__main__":
         if user_input == "ありがとう": break
 
         # ユーザー入力をインポートテキストに追記する
-        if (re.match("覚えて: ", user_input)):
-            text = user_input.replace("覚えて: ", "")
+        if (re.match('^@|^＠', user_input)):
+            text = re.sub('^@|^＠', '', user_input)
             import_text.add(text)
             markov.add(morpheme_analyzer.analyze(text))
-            print("AI: 覚えたよ！")
+            output('覚えたよ！')
             continue
 
         # 定型文から回答を取得
@@ -35,6 +38,9 @@ if __name__ == "__main__":
             nouns = morpheme_analyzer.extract_noun(user_input)
             text = markov.answer(nouns)
 
-        print("AI: " + text)
+        if text == "":
+            text = "ななこにも分かる言葉で言ってよぉ～☆"
 
-    print("AI: こちらこそありがとう☆　またお話しようね♪")
+        output(text)
+
+    output("こちらこそありがとう☆　またお話しようね♪")
